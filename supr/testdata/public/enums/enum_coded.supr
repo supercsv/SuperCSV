@@ -1,0 +1,7 @@
+priority:enum<0=low,1=medium,2=high>
+low
+medium
+high
+0
+1
+2

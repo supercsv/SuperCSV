@@ -1,0 +1,6 @@
+# This file demonstrates comments in SuperCSV
+id:int,name:string
+# Data rows below
+1,Alice
+# Another comment
+2,Bob

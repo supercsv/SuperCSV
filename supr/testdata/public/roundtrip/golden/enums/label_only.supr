@@ -1,0 +1,5 @@
+((SuperCSV v1.0))
+status:enum<pending,active,done>
+pending
+active
+done

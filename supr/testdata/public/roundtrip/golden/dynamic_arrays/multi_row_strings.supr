@@ -1,0 +1,4 @@
+((SuperCSV v1.0))
+words:arr<string>
+[hello,world]
+[foo,bar,baz]

@@ -1,0 +1,4 @@
+status:enum<pending,active,done>,priority:enum<0=low,1=medium,2=high>
+pending,low
+active,medium
+done,high

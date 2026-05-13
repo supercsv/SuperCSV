@@ -1,0 +1,3 @@
+((SuperCSV v1.0))
+id:int,score:flt,amount:dec,active:bl,name:str,data_hex:hex,data_b64:b64,birth:dat,wake:tm,created:ts,elapsed:dur,zone:tz,uuid:uu
+42,3.14,123.456,1,hello,dead,beef,2024-01-15,09:30:00,2024-01-15T09:30:00Z,PT1H30M,"+05:00",550e8400-e29b-41d4-a716-446655440000

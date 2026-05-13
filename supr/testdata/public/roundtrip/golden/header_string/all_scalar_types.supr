@@ -1,0 +1,2 @@
+((SuperCSV v1.0))
+i:int,f:float,d:decimal,s:string,b:bool,dt:date,tm:time,ts:timestamp,dur:duration,uid:uuid,hex:bytes<hex>,b64:bytes<b64>

@@ -1,0 +1,6 @@
+# Edge case: differentiate zero-row matrices from one-row-zero-column matrices
+MatrixId:int, Matrix:arr<int>
+# zero rows, zero columns
+10, []
+# one row with zero columns
+11, [[]]

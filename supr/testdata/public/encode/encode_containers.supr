@@ -1,0 +1,4 @@
+((SuperCSV v1.0))
+a_list:list<string>,b_list_fixed:list<int>[3],c_arr:arr<float>,d_arr_1d:arr<int>[2],e_arr_2d:arr<int>[2,3],f_enum:enum<low,med,high>,g_enum_coded:enum<1=S,2=M,3=L>
+[hello,world],[1,2,3],[1.1,2.2,3.3],[10,20],[[1,2,3],[4,5,6]],low,S
+[foo],[4,5,6],[9.9,8.8],[30,40],[[7,8,9],[10,11,12]],high,L

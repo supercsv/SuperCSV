@@ -1,0 +1,2 @@
+((SuperCSV v1.0))
+id:int,name:str,score:flt,active:bl

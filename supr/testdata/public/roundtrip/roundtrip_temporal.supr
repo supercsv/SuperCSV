@@ -1,0 +1,4 @@
+((SuperCSV v1.0))
+d:date,t:time,ts:timestamp,dur:duration
+2024-01-15,13:45:00,2024-01-15T13:45:00,PT1H30M
+2023-12-31,23:59:59,2023-12-31T23:59:59,P2DT5H

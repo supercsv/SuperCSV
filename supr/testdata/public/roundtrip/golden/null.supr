@@ -1,0 +1,4 @@
+((SuperCSV v1.0))
+a:int,b:string,c:list<int>
+1,_,[10,20]
+_,hello,_

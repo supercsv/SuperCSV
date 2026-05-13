@@ -1,0 +1,6 @@
+# Fixed-length RGB color
+Name:string, Color:arr<float>[3]
+
+Red, [1.0,0.0,0.0]
+Green, [0.0,1.0,0.0]
+Blue, [0.0,0.0,1.0]

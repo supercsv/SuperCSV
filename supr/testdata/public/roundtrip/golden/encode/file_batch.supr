@@ -1,0 +1,4 @@
+((SuperCSV v1.0))
+x:int,y:string
+10,hello
+20,world

@@ -1,0 +1,2 @@
+((SuperCSV v1.0))
+tags:list<string>,scores:list<int>[3],vec:arr<float>[3],mat:arr<int>[2,2],dyn:arr<float>

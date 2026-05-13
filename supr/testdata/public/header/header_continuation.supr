@@ -1,0 +1,5 @@
+id:int,
+name:string,
+active:bool
+1,Alice,1
+2,Bob,0

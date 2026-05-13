@@ -1,0 +1,3 @@
+((SuperCSV v1.0))
+id:int,name:str,score:flt,active:bl,tags:li<str>,created:ts
+1,test,9.5,1,[a,b],2024-01-01T00:00:00Z

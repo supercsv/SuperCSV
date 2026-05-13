@@ -1,0 +1,2 @@
+((SuperCSV v1.0))
+dt:date,ts:timestamp,tags:list<string>

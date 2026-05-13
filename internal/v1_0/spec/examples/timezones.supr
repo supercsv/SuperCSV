@@ -1,0 +1,15 @@
+# Timezone variations: real zones, null, empty string, and arbitrary identifiers
+Id:int, Zone:timezone
+
+1, UTC
+2, "Pacific/Auckland"
+3, "America/New_York"
+4, "Europe/Berlin"
+5, "Asia/Tokyo"
+6, "Australia/Sydney"
+# empty string (present but blank)
+7, ""
+# null literal (missing timezone)
+8, _
+# "arbitrary but accepted identifier
+9, "Foo/Bar"

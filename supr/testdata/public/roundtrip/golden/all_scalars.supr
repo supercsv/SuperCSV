@@ -1,0 +1,5 @@
+((SuperCSV v1.0))
+int_val:int,float_val:float,bool_val:bool,string_val:string
+42,3.14,1,hello
+-1,-2.5,0,world
+_,_,_,_

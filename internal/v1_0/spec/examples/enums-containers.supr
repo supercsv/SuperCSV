@@ -1,0 +1,6 @@
+# Demonstrating enums inside containers
+Id:int, History:list<enum<low,medium,high>>, Votes:arr<enum<yes,no>>, Matrix:arr<enum<yes,no>>
+
+1, [low,medium,high], [yes,no,yes], [[yes,no],[no,yes]]
+2, [3][low,medium,high], [3][yes,yes,no], [2,2][[yes,yes],[no,no]]
+3, [], [], [[]]

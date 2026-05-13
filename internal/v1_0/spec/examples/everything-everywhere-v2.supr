@@ -1,0 +1,21 @@
+# Kitchen-sink example demonstrating comments, blank lines, nulls, enums, and constrained containers
+# --------------------------------------------------------------
+
+# Header mixes enums, lists, fixed-length arrays, shape-constrained arrays, and prefixed arrays
+Id:int, Name:string, Status:enum<0=pending,1=active,2=archived>,
+ Tags:list<string>, Scores:arr<float>[3], Matrix:arr<int>[2,2],
+ Extras:arr<int>, Notes:string
+
+# Blank line above intentionally left empty
+
+1, "Eve", 1, [alpha,beta], [3.5,4.0,4.5], [[1,2],[3,4]], [4][10,20,30,40], First row
+
+# Using numeric enum literal and null notes
+2, Dan, 0, [gamma,_], [1.0,2.0,3.0],
+ [[0,1],[1,0]], [3][5,15,25], _
+
+# Null enum, null inside fixed-length array, null inside matrix
+3, Mia, _, [delta],
+(rows can wrap and have comment rows inside)
+ [_,0.0,1.0], [[_,2],[3,_]], [], 
+(see the row wrapped again) "Nulls allowed"

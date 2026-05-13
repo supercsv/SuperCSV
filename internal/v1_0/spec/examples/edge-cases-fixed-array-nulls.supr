@@ -1,0 +1,3 @@
+# Edge case: nulls inside fixed-length arrays still count toward size
+ColorId:int, RGB:arr<float>[3]
+20, [1.0, _, 0.5]

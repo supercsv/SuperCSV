@@ -1,0 +1,5 @@
+# Locations stored as a list
+Id:int, Locations:list<string>
+
+1, [Home,Office]
+2, [Downtown,Campus]

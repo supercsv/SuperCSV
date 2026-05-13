@@ -1,0 +1,5 @@
+((SuperCSV v1.0))
+id:int,name:string,score:float
+1,Alice,95.5
+2,Bob,87.3
+3,Carol,_

@@ -1,0 +1,3 @@
+# Edge case: empty containers remain valid without prefixes
+Id:int, Tags:list<string>, Values:arr<int>
+1, [], []

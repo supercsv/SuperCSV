@@ -1,0 +1,4 @@
+a:int,b:string,c:bool,d:date
+_,_,_,_
+42,hello,1,2024-01-15
+_,_,_,_

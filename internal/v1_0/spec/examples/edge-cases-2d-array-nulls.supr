@@ -1,0 +1,3 @@
+# Edge case: nulls inside 2D arrays are allowed
+GridId:int, Grid:arr<float>
+30, [[1.0, _], [_, 4.0]]

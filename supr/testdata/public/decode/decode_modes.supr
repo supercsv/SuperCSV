@@ -1,0 +1,3 @@
+num:int,tags:list<string>
+42,[A,B,C]
+99,[X]

@@ -1,0 +1,11 @@
+((SuperCSV v1.0))
+text:string
+simple
+"with, comma"
+"with ""quotes"""
+"with	tab"
+" leading space"
+"trailing space "
+"#comment"
+"[brackets]"
+"a;semicolon"

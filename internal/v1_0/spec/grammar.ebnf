@@ -1,0 +1,262 @@
+(* SuperCSV v1.0 Grammar — structure, types, values, comments, metadata *)
+
+SuperCSVFile   ::= { PreambleLine } HeaderRow { BodyLine } ;
+
+PreambleLine   ::= BlankLine | CommentLine | MetaLine ;
+BodyLine       ::= DataRow | BlankLine | CommentLine | MetaLine ;
+
+(* Annotation blocks *)
+
+CommentBlock   ::= "(" { BlockChar } ")" ;
+MetaBlock      ::= "((" { BlockChar } "))" ;
+BlockChar      ::= AnyChar - "(" - ")" - ControlChar - LineEnd ;
+
+(* Line-level comments and metadata *)
+(* No leading whitespace — lines with leading whitespace are data rows. *)
+
+CommentLine    ::= [ Whitespace ] "#" { AnyChar - LineEnd } LineEnd
+                 | [ Whitespace ] CommentBlock [ Whitespace ] LineEnd ;
+MetaLine       ::= [ Whitespace ] MetaBlock [ Whitespace ] LineEnd ;
+BlankLine      ::= [ Whitespace ] LineEnd ;
+
+LineEnd        ::= "\n" | "\r\n" ;
+
+(* Rows *)
+(* A comma followed by a newline continues the row on the next line.          *)
+(* Blank lines and line-level comments/metadata may appear between            *)
+(* continuation lines. # comments are only permitted between header           *)
+(* continuation lines, not between data row continuation lines.               *)
+
+HeaderRow      ::= AnnotatedHeaderField
+                   { "," [ LineEnd ] AnnotatedHeaderField }
+                   LineEnd ;
+
+DataRow        ::= AnnotatedField
+                   { "," [ LineEnd ] AnnotatedField }
+                   LineEnd ;
+
+(* Header *)
+
+HeaderField    ::= Identifier [ Whitespace ] ":" [ Whitespace ] Type ;
+
+Identifier     ::= IdentifierStart { IdentifierChar } ;
+IdentifierStart::= "A"…"Z" | "a"…"z" | "0"…"9" ;
+IdentifierChar ::= IdentifierStart | "_" | "-" ;
+
+(* Types *)
+
+Type           ::= ScalarType
+                 | EnumType
+                 | ListType
+                 | ArrayType ;
+
+(* Type names — canonical forms. The type table defines short aliases        *)
+(* (e.g. i, f, d, b, s, dt, dtz, ts, du, z, u, bx, b6, l, a, e) that      *)
+(* are normative and MUST be accepted wherever a type name appears.          *)
+
+ScalarType     ::= "int" | "float" | "decimal" | "bool" | "string"
+                 | BytesType
+                 | "date" | "time" | "datetime" | "datetimetz"
+                 | "timestamp" | "duration" | "timezone" | "uuid" ;
+
+BytesType      ::= "bytes" "<" ( "hex" | "b64" ) ">" ;
+
+EnumType       ::= "enum" "<" EnumItem { "," EnumItem } ">" ;
+EnumItem       ::= Identifier
+                 | Identifier "=" Identifier ;
+
+ListType       ::= "list" "<" ElementType ">" [ "[" PositiveInt "]" ] ;
+ArrayType      ::= "arr" "<" ElementType ">" ( "[" PositiveInt "]"
+                                             | "[" PositiveInt "," PositiveInt "]"
+                                             | ε ) ;
+
+ElementType    ::= ScalarType | EnumType ;
+
+PositiveInt    ::= NonZeroDigit { Digit } ;
+
+(* Fields / Values *)
+
+(* Inline annotations                                                         *)
+(* Each field may have at most one comment block and one metadata block.      *)
+(* Each block may appear either before or after the value.                    *)
+
+AnnotatedHeaderField ::= [ Whitespace ]
+                         [ CommentBlock ] [ MetaBlock ]
+                         HeaderField
+                         [ MetaBlock ] [ CommentBlock ]
+                         [ Whitespace ] ;
+
+AnnotatedField       ::= [ Whitespace ]
+                         [ CommentBlock ] [ MetaBlock ]
+                         FieldCore
+                         [ MetaBlock ] [ CommentBlock ]
+                         [ Whitespace ] ;
+
+FieldCore      ::= NullLiteral
+                 | StringValue
+                 | NumericValue
+                 | BoolValue
+                 | BytesValue
+                 | TemporalValue
+                 | UuidValue
+                 | ContainerValue ;
+
+NullLiteral    ::= "_" ;
+
+(* Strings *)
+
+StringValue    ::= QuotedString | UnquotedString ;
+
+QuotedString   ::= "\"" { StringChar | "\"\"" } "\"" ;
+StringChar     ::= AnyChar - "\"" - LineEnd ;
+
+UnquotedString ::= UnquotedChar { UnquotedChar } ;
+UnquotedChar   ::= AnyChar
+                   - ","
+                   - "#"
+                   - "["
+                   - "]"
+                   - "("
+                   - ")"
+                   - "<"
+                   - ">"
+                   - "{"
+                   - "}"
+                   - "\""
+                   - "'"
+                   - "`"
+                   - ";"
+                   - ":"
+                   - "="
+                   - "?"
+                   - "/"
+                   - "\\"
+                   - "|"
+                   - "@"
+                   - ControlChar
+                   - LineEnd ;
+
+(* Numbers / Bool *)
+
+NumericValue   ::= IntLiteral
+                 | FloatLiteral
+                 | DecimalLiteral ;
+
+IntLiteral     ::= [ "-" ] NonZeroDigit { Digit }
+                 | "0" ;
+
+FloatLiteral   ::= [ "-" ] ( Digit { Digit } [ "." { Digit } ]
+                           | "." Digit { Digit } )
+                   [ ExponentPart ]
+                 | SpecialFloat ;
+
+DecimalLiteral ::= [ "-" ] ( "0" | NonZeroDigit { Digit } ) [ "." Digit { Digit } ] ;
+
+ExponentPart   ::= ( "e" | "E" ) [ "+" | "-" ] Digit { Digit } ;
+
+SpecialFloat   ::= "nan" | "NaN" | "NAN"
+                 | "inf" | "Inf" | "INF"
+                 | "-inf" | "-Inf" | "-INF" ;
+
+BoolValue      ::= "true" | "false" | "TRUE" | "FALSE"
+                 | "1" | "0" ;
+
+(* Bytes *)
+
+BytesValue     ::= HexBytes | Base64Bytes ;
+
+HexBytes       ::= HexDigit HexDigit { HexDigit HexDigit } ;
+Base64Bytes    ::= Base64Char { Base64Char } [ "==" | "=" ] ;
+
+HexDigit       ::= "0"…"9" | "A"…"F" | "a"…"f" ;
+Base64Char     ::= "A"…"Z" | "a"…"z" | "0"…"9" | "+" | "/" ;
+
+(* Temporal *)
+
+TemporalValue  ::= DateLiteral
+                 | TimeLiteral
+                 | TimestampLiteral
+                 | DurationLiteral ;
+
+DateLiteral    ::= Year ( "-" | "/" ) Month ( "-" | "/" ) Day ;
+
+TimeLiteral    ::= Hour ":" Minute ":" Second [ "." Digit { Digit } ] ;
+
+TimestampLiteral
+               ::= DateLiteral ( "T" | " " ) TimeLiteral [ TimezoneOffset ] ;
+
+TimezoneOffset ::= "Z"
+                 | ( "+" | "-" ) Hour ":" Minute ;
+
+DurationLiteral::= "P" [ DaysPart ] [ "T" [ HoursPart ] [ MinutesPart ] [ SecondsPart ] ] ;
+
+DaysPart       ::= Digit { Digit } "D" ;
+HoursPart      ::= Digit { Digit } "H" ;
+MinutesPart    ::= Digit { Digit } "M" ;
+SecondsPart    ::= Digit { Digit } [ "." Digit { Digit } ] "S" ;
+
+Year           ::= Digit Digit Digit Digit ;
+Month          ::= "0" Digit | "1" "0"…"2" ;
+Day            ::= "0" Digit | "1"…"2" Digit | "3" "0"…"1" ;
+
+Hour           ::= "0"…"1" Digit | "2" "0"…"3" ;
+Minute         ::= "0"…"5" Digit ;
+Second         ::= "0"…"5" Digit ;
+
+(* UUID *)
+
+UuidValue      ::= HexDigit HexDigit HexDigit HexDigit
+                   HexDigit HexDigit HexDigit HexDigit
+                   "-" HexDigit HexDigit HexDigit HexDigit
+                   "-" HexDigit HexDigit HexDigit HexDigit
+                   "-" HexDigit HexDigit HexDigit HexDigit
+                   "-" HexDigit HexDigit HexDigit HexDigit
+                      HexDigit HexDigit HexDigit HexDigit ;
+
+(* Containers *)
+
+ContainerValue ::= ListValue | ArrayValue ;
+
+(* list<T> *)
+
+ListValue      ::= [ ListPrefix ] "[" [ ListElements ] "]" ;
+
+ListPrefix     ::= "[" PositiveInt "]" ;
+
+ListElements   ::= ListElement { "," ListElement } ;
+ListElement    ::= NullLiteral | ElementCore ;
+
+ElementCore    ::= StringValue
+                 | NumericValue
+                 | BoolValue
+                 | BytesValue
+                 | TemporalValue
+                 | UuidValue ;
+
+(* arr<T> *)
+
+ArrayValue     ::= [ ArrayPrefix1D ] "[" [ ArrayBody ] "]"
+                 | ArrayPrefix2D "[" Array2D "]" ;
+
+ArrayBody      ::= Array1D
+                 | Array2D ;
+
+ArrayPrefix1D  ::= "[" PositiveInt "]" ;
+ArrayPrefix2D  ::= "[" PositiveInt "," PositiveInt "]" ;
+
+Array1D        ::= ArrayElement { "," ArrayElement } ;
+Array2D        ::= "[" ArrayRow { "," ArrayRow } "]" ;
+
+ArrayRow       ::= "[" ArrayElement { "," ArrayElement } "]" ;
+
+ArrayElement   ::= NullLiteral | ElementCore ;
+
+(* Lexical primitives *)
+
+Digit          ::= "0"…"9" ;
+NonZeroDigit   ::= "1"…"9" ;
+
+Whitespace     ::= " " | "\t" ;
+ControlChar    ::= "\u0000"…"\u001F" | "\u007F" ;
+
+AnyChar        ::= ? any Unicode scalar value ? ;

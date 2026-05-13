@@ -1,0 +1,23 @@
+# ==========================================
+# North America Offices
+# ==========================================
+OfficeId:int, OfficeName:string, StaffCount:int
+
+1, "New York", 320
+2, "Toronto", 140
+3, "San Francisco", 210
+
+
+# ==========================================
+# Europe Offices
+# ==========================================
+# Same table, same schema — just grouped
+4, "London", 260
+5, "Berlin", 180
+
+
+# ==========================================
+# Asia-Pacific Offices
+# ==========================================
+6, "Tokyo", 300
+7, "Singapore", 190

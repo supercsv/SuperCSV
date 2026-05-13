@@ -1,0 +1,4 @@
+status:enum<pending,active,done>
+pending
+active
+done

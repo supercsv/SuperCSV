@@ -1,0 +1,19 @@
+# Comprehensive string quoting examples
+Id:int, Description:string, Value:string
+
+1, plain ASCII, alpha
+2, contains comma, "alpha, beta"
+3, leading whitespace, "  padded"
+4, trailing whitespace, "trimmed  "
+5, hash requires quoting, "#comment?"
+6, contains bracket, "list[0]"
+7, contains double quote, "She said ""hi"""
+8, semicolon present, "alpha;beta"
+9, tab character, "left	or	right"
+10, newline character, "first line
+second line"
+11, mixed specials, " #hash, bracket] "
+12, quoted empty string, ""
+13, UTF-8 emoji, "Hello 😀"
+14, underscore safe unquoted, under_score
+15, digits safe unquoted, version1

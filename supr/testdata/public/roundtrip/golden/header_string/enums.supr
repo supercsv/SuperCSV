@@ -1,0 +1,2 @@
+((SuperCSV v1.0))
+status:enum<pending,active,done>,level:enum<100=low,200=medium,300=high>

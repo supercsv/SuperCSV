@@ -1,0 +1,6 @@
+# Numbered enum variant
+Id:int, Priority:enum<0=low,1=medium,2=high>
+
+1, low
+2, 1
+3, high

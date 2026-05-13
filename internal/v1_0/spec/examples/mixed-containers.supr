@@ -1,0 +1,5 @@
+# A slightly richer example
+Name:string, Scores:arr<float>, Flags:list<bool>
+
+Alice, [1.2,3.4,5.6], [true,false,true]
+Bob, [0.5,0.8], [false]

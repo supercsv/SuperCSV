@@ -1,0 +1,5 @@
+((SuperCSV v1.0))
+code:enum<E=ERROR,F=FAILURE,O=OK>
+ERROR
+FAILURE
+OK

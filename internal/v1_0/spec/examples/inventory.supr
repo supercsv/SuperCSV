@@ -1,0 +1,5 @@
+# Inventory with quantities per quarter
+Item:string, Quantities:arr<int>
+
+Apples, [10,20,15,30]
+Oranges, [5,8,12,9]

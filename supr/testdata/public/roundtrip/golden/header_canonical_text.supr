@@ -1,0 +1,2 @@
+((SuperCSV v1.0))
+x:int,y:list<string>,z:enum<low,med,high>

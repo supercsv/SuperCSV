@@ -1,0 +1,4 @@
+((SuperCSV v1.0))
+id:int,tags:list<string>,grade:enum<A,B,C,D,F>
+1,[math,sci],A
+2,_,_

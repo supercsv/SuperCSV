@@ -1,0 +1,5 @@
+((SuperCSV v1.0))
+id:int,name:string,score:float,tags:list<string>
+1,Alice,95.5,[math,sci]
+2,Bob,87.3,[art]
+3,Charlie,92.1,[math,art,music]

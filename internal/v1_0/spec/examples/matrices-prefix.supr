@@ -1,0 +1,4 @@
+# 3x3 matrices using value-level shape prefix
+Name:string, Matrix:arr<float>
+
+Identity, [3,3][[1,0,0],[0,1,0],[0,0,1]]
